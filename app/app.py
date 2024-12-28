@@ -4,7 +4,7 @@ from google.cloud import translate_v2 as translate
 import os
 
 # Set the environment variable to point to your Google Cloud service account key JSON file
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "C:/translateKey/spring-bonfire-446010-f9-09caeb427782.json"
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "C:/translateKey/key.json"
 
 app = Flask(__name__)
 
