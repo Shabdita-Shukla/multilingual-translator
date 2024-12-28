@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multilingual Page</title>
+</head>
+<body>
+    <div>
+        <h1>Welcome to the Translation Page</h1>
+        <p id="content">
+            What to Do in a Bear Market":
+
+Navigating a Bear Market: Smart Moves for Investors
+
+A bear market can feel intimidating, but it’s a natural part of the economic cycle. Here’s how you can make the most of it:
+
+Stay Calm and Think Long-Term
+Markets go through ups and downs. Historically, every bear market has been followed by a recovery. Focus on your long-term goals, not short-term noise.
+
+Evaluate Your Portfolio
+A downturn is a good time to revisit your investments. Diversify your portfolio and ensure it aligns with your risk tolerance and financial goals.
+
+Buy Quality at a Discount
+Bear markets present opportunities to invest in fundamentally strong companies at lower valuations. Think of it as a sale on great businesses.
+
+Build Emergency Funds
+If you don’t have one already, prioritize an emergency fund. It gives you financial stability and the confidence to invest when opportunities arise.
+
+Learn and Stay Informed
+Use this time to understand market trends, learn about new sectors, and gain insights. Knowledge is your best asset.
+
+Remember, bear markets test your patience, but they also reward disciplined investors. Stay focused, stick to your plan, and use this phase to strengthen your portfolio.
+        </p>
+
+        <label for="languageDropdown">Select Language:</label>
+        <select id="languageDropdown">
+            <option value="es">Spanish</option>
+            <option value="fr">French</option>
+            <option value="de">German</option>
+            <option value="it">Italian</option>
+			<option value="en">English</option>
+			<option value="hi">Hindi</option>
+            <!-- Add more languages here -->
+        </select>
+    </div>
+
+    <script>
+        // This is where you write JavaScript code
+        document.getElementById('languageDropdown').addEventListener('change', async (event) => {
+            const selectedLanguage = event.target.value;
+            const textToTranslate = document.getElementById('content').innerText;
+
+            // Escape special characters in the text
+            const escapedText = textToTranslate.replace(/([\\'"\n\r])/g, '\\$1');
+
+            try {
+                const response = await fetch('http://127.0.0.1:5000/translate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ text: escapedText, targetLanguage: selectedLanguage }),
+                });
+
+                if (!response.ok) {
+                    throw new Error('Translation failed');
+                }
+
+                const data = await response.json();
+                document.getElementById('content').innerText = data.translatedText;
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        });
+    </script>
+</body>
+</html>
